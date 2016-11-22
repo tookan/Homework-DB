@@ -5,21 +5,26 @@ $connect= new PDO("mysql:dbname=stud0503_tookan;host=localhost","stud0503_tookan
     echo "we have an error".$t->getMessage();
 }
 $request="SELECT * FROM me";
-foreach($connect->query($request) AS $row){
-    for($i=0;$i<count($row['parent_id']);$i++){
-    $menu[$row['parent_id']][$i]= $row['name'];
-    }
-}
-
-var_dump($menu);
-/*function treeBuild($items,$id){
+$row=$connect->query($request);
+while ($arr=$row->fetch(PDO::FETCH_ASSOC)){
+    
+     $category[$arr['parent_id']][$arr['id']]=$arr['name'];
+    
+   }
+//var_dump(count($category[1]);
+function treeBuild($items,$id){
     if(empty($items[$id])){
         return;
     }
-for($i=1;$i<count($items[$i]);$i++){
-    echo $items[$id][$i];
+    echo '<ul>';
+for($i=1;$i<=/*count($items[$id])*/6;$i++){
+   if ($items[$id][$i]==NULL){
+       continue;
+   }
+  echo '<a href="'.$items[$id][$i].'">'.$items[$id][$i].'</a>';
     treeBuild($items,$i);
+     }
+echo '</ul>';
 }
-}
-echo $menu[1];
-treeBuild($menu,0);*/
+
+treeBuild($category,0);
