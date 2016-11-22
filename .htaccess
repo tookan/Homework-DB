@@ -1,0 +1,7 @@
+Options -Indexes 
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REMOTE_ADDR} ^77.120.166.16[1-4]$ [NC]
+RewriteRule  ^regular.php$  index.php [R=302,L]
+RewriteCond %{REMOTE_ADDR} !(77.120.150.118)[NC]
+RewriteRule ^config.php$ index.php [R=403,l]
